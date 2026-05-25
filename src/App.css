@@ -1,0 +1,151 @@
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 28px;
+}
+
+h2 {
+  font-size: 14px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.card {
+  background: #1a1a2e;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.balance {
+  font-size: 24px;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.wallet-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.address {
+  font-family: monospace;
+  font-size: 14px;
+  background: #1a1a2e;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.badge {
+  font-size: 12px;
+  background: #f0b90b;
+  color: #000;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.connect-section {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.form-row {
+  margin-bottom: 12px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #0f0f23;
+  color: #fff;
+  font-size: 16px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  border-color: #646cff;
+}
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-connect {
+  background: #646cff;
+  color: #fff;
+  padding: 12px 32px;
+  font-size: 16px;
+}
+
+.btn-connect:hover:not(:disabled) {
+  background: #535bf2;
+}
+
+.btn-disconnect {
+  background: transparent;
+  color: #888;
+  border: 1px solid #444;
+  margin-left: auto;
+}
+
+.btn-primary {
+  background: #646cff;
+  color: #fff;
+  flex: 1;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #535bf2;
+}
+
+.btn-danger {
+  background: #e74c3c;
+  color: #fff;
+  width: 100%;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #c0392b;
+}
+
+.hint {
+  font-size: 13px;
+  color: #888;
+  margin-top: 10px;
+}
+
+.hint.success {
+  color: #2ecc71;
+}
