@@ -16,7 +16,7 @@ const metadata = {
 createAppKit({
   adapters: [wagmiAdapter],
   projectId,
-  networks,
+  networks: networks as [any, ...any[]],
   defaultNetwork: networks[0],
   metadata,
 });
