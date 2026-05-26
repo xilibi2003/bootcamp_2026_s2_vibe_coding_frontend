@@ -1,11 +1,10 @@
 import {
   useAccount,
-  useConnect,
-  useDisconnect,
   useReadContract,
   useWriteContract,
   useWaitForTransactionReceipt,
 } from "wagmi";
+import { useAppKit, useDisconnect } from "@reown/appkit/react";
 import { useState } from "react";
 import { formatUnits, parseUnits } from "viem";
 import { TOKEN_BANK_ADDRESS, MY_TOKEN_ADDRESS } from "./config";
@@ -15,12 +14,10 @@ import "./App.css";
 
 function App() {
   const { address, isConnected } = useAccount();
-  const { connect, connectors } = useConnect();
+  const { open } = useAppKit();
   const { disconnect } = useDisconnect();
-
   const [amount, setAmount] = useState("");
 
-  // Read token info
   const { data: symbol } = useReadContract({
     address: MY_TOKEN_ADDRESS,
     abi: myTokenAbi,
@@ -33,8 +30,7 @@ function App() {
     functionName: "decimals",
   });
 
-  // Read user's token balance
-  const { data: balance, refetch: refetchBalance } = useReadContract({
+  const { data: balance } = useReadContract({
     address: MY_TOKEN_ADDRESS,
     abi: myTokenAbi,
     functionName: "balanceOf",
@@ -42,11 +38,7 @@ function App() {
     query: { enabled: !!address },
   });
 
-  // Read user's deposited amount in TokenBank
-  const {
-    data: deposited,
-    refetch: refetchDeposited,
-  } = useReadContract({
+  const { data: deposited } = useReadContract({
     address: TOKEN_BANK_ADDRESS,
     abi: tokenBankAbi,
     functionName: "depositedAmount",
@@ -54,14 +46,14 @@ function App() {
     query: { enabled: !!address },
   });
 
-  // Read admin
   const { data: admin } = useReadContract({
     address: TOKEN_BANK_ADDRESS,
     abi: tokenBankAbi,
     functionName: "admin",
   });
 
-  const isAdmin = address && admin && address.toLowerCase() === (admin as string).toLowerCase();
+  const isAdmin =
+    address && admin && address.toLowerCase() === (admin as string).toLowerCase();
 
   // Approve
   const {
@@ -80,7 +72,7 @@ function App() {
     isPending: isDepositPending,
   } = useWriteContract();
 
-  const { isLoading: isDepositConfirming, isSuccess: isDepositSuccess } =
+  const { isLoading: isDepositConfirming } =
     useWaitForTransactionReceipt({ hash: depositHash });
 
   // Withdraw
@@ -90,7 +82,7 @@ function App() {
     isPending: isWithdrawPending,
   } = useWriteContract();
 
-  const { isLoading: isWithdrawConfirming, isSuccess: isWithdrawSuccess } =
+  const { isLoading: isWithdrawConfirming } =
     useWaitForTransactionReceipt({ hash: withdrawHash });
 
   const tokenDecimals = (decimals as number) ?? 18;
@@ -134,15 +126,9 @@ function App() {
 
       {!isConnected ? (
         <div className="connect-section">
-          {connectors.map((connector) => (
-            <button
-              key={connector.uid}
-              onClick={() => connect({ connector })}
-              className="btn btn-connect"
-            >
-              Connect Wallet
-            </button>
-          ))}
+          <button onClick={() => open()} className="btn btn-connect">
+            Connect Wallet
+          </button>
         </div>
       ) : (
         <>
